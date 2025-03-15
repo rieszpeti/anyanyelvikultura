@@ -14,9 +14,11 @@ const LatestPosts: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response: LatestPostsResponse = await fetch('/api/post').then((res) => res.json())
+        const response: LatestPostsResponse = await fetch('/api/post/getLatestPosts/3').then(
+          (res) => res.json(),
+        )
         if (response && response.docs) {
-          setPosts(response.docs.slice(0, 3))
+          setPosts(response.docs)
         }
       } catch (error) {
         console.error('Error fetching posts:', error)
