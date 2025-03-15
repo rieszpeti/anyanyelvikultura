@@ -5,6 +5,7 @@
     overflow: hidden;
     max-width: 500px;
     margin: 0 auto;
+    padding-top: 2rem;
 }
 
 
@@ -12,7 +13,6 @@
 .carousel-list {
     display: flex;
     gap: 8px;
-    padding: 16px;
   
     list-style: none;
     overflow-x: scroll;
