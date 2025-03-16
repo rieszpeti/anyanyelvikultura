@@ -9,7 +9,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import { Post } from './collections/Post'
+import { Posts } from './collections/Posts'
 import { CarouselImages } from './collections/CarouselImages'
 import { Pages } from './collections/Pages'
 
@@ -23,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Post, CarouselImages, Pages],
+  collections: [Users, Media, Posts, CarouselImages, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

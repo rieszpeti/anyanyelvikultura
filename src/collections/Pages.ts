@@ -4,6 +4,10 @@ export const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'updatedAt'],
+    livePreview: {
+      url: ({ data }) => `${process.env.PAYLOAD_URL}/${data.slug}`,
+    },
   },
   access: {
     read: ({ req: { user } }) => {
@@ -34,6 +38,12 @@ export const Pages: CollectionConfig = {
       name: 'content',
       type: 'richText',
       required: true,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
     },
   ],
 }

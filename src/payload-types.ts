@@ -68,7 +68,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    post: Post;
+    posts: Post;
     carousel_images: CarouselImage;
     pages: Page;
     'payload-locked-documents': PayloadLockedDocument;
@@ -79,7 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    post: PostSelect<false> | PostSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     carousel_images: CarouselImagesSelect<false> | CarouselImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -156,7 +156,7 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "post".
+ * via the `definition` "posts".
  */
 export interface Post {
   id: number;
@@ -176,9 +176,10 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  thumbnail?: (number | null) | Media;
+  slug: string;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -222,6 +223,7 @@ export interface Page {
     };
     [k: string]: unknown;
   };
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -242,7 +244,7 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'post';
+        relationTo: 'posts';
         value: number | Post;
       } | null)
     | ({
@@ -330,14 +332,15 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "post_select".
+ * via the `definition` "posts_select".
  */
-export interface PostSelect<T extends boolean = true> {
+export interface PostsSelect<T extends boolean = true> {
   title?: T;
   content?: T;
-  thumbnail?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -365,6 +368,7 @@ export interface CarouselImagesSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   content?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

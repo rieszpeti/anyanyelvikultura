@@ -1,9 +1,32 @@
 import type { CollectionConfig, PayloadRequest } from 'payload'
 
-export const Post: CollectionConfig = {
-  slug: 'post',
+export const Posts: CollectionConfig = {
+  slug: 'posts',
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'updatedAt'],
+    livePreview: {
+      url: ({ data }) => `${process.env.PAYLOAD_URL}/${process.env.PAYLOAD_URL_POSTS}/${data.slug}`,
+    },
+  },
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => {
+      // Logged in users can read anything
+      if (user) return true
+
+      // If not logged in, you can oinly read published pages
+      // This is called "query constraint"
+      return {
+        _status: {
+          equals: 'published',
+        },
+      }
+    },
+  },
+  versions: {
+    drafts: {
+      autosave: true,
+    },
   },
   fields: [
     {
@@ -17,10 +40,10 @@ export const Post: CollectionConfig = {
       required: true,
     },
     {
-      name: 'thumbnail',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
     },
   ],
   endpoints: [
@@ -34,7 +57,7 @@ export const Post: CollectionConfig = {
 
         try {
           const latestPosts = await req.payload.find({
-            collection: 'post',
+            collection: 'posts',
             limit: maxPosts,
             sort: '-createdAt',
           })

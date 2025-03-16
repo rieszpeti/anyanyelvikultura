@@ -14,7 +14,7 @@ const LatestPosts: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response: LatestPostsResponse = await fetch('/api/post/getLatestPosts/3').then(
+        const response: LatestPostsResponse = await fetch('/api/posts/getLatestPosts/3').then(
           (res) => res.json(),
         )
         if (response && response.docs) {
