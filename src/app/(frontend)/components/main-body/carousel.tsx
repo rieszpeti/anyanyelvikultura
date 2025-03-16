@@ -1,35 +1,19 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
 import './carousel.css'
 import Image from 'next/image'
-import { CarouselImage } from '@/payload-types'
-import { BaseApiResponse } from '@/requests/base-api-request'
+import config from '../../../../payload.config'
+import { getPayload } from 'payload'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface CarouselResponse extends BaseApiResponse<CarouselImage> {}
+export default async function Carousel() {
+  const payload = await getPayload({ config })
 
-const Carousel: React.FC = () => {
-  const [images, setImages] = useState<CarouselImage[]>()
+  const pageRes = await payload.find({
+    collection: 'carousel_images',
+    draft: true,
+  })
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response: CarouselResponse = await fetch('/api/carousel_images').then((res) =>
-          res.json(),
-        )
-        if (response && response.docs) {
-          setImages(response.docs)
-        }
-      } catch {}
-    }
+  const images = pageRes?.docs ?? []
 
-    fetchImages()
-  }, [])
-
-  if (images === undefined || images === null) {
-    return <></>
-  }
+  if (images.length === 0) return null
 
   return (
     <div className="carousel">
@@ -38,13 +22,13 @@ const Carousel: React.FC = () => {
           <li key={index} className="carousel-item">
             <div className="carousel-images">
               <Image
-                priority={true}
+                priority
                 src={image.url!}
                 alt={image.title || 'Image'}
+                width={500}
+                height={300}
                 placeholder="blur"
-                blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zY2hlbWFzL3NvY2lhbC9zdmcvMS4wL3JlY3QyQnBGRnBhT1h6cHhGQGhFfUwOBcE5hbWZmYXVmUyIHf2pOhtlFkwkOA+oMJlhYM6uZblmDsc4pycFSawQWmNEp7zsd44uYfaSYDbLO9MjV1tqFgCHMw8dvh4vKPEE63zml7wYB1meY2fm8u"
-                width={-1}
-                height={-1}
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0i..."
               />
             </div>
           </li>
@@ -53,5 +37,3 @@ const Carousel: React.FC = () => {
     </div>
   )
 }
-
-export default Carousel

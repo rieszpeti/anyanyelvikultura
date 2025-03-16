@@ -1,36 +1,20 @@
-'use client'
-
-import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 import './latest-posts.css'
-import { Post } from '@/payload-types'
-import { BaseApiResponse } from '@/requests/base-api-request'
+import { getPayload } from 'payload'
+import config from '../../../../payload.config'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface LatestPostsResponse extends BaseApiResponse<Post> {}
+export default async function LatestPosts() {
+  const payload = await getPayload({ config })
 
-const LatestPosts: React.FC = () => {
-  const [posts, setPosts] = useState<Post[] | undefined>(undefined)
+  const response = await payload.find({
+    collection: 'posts',
+    limit: 3,
+    sort: '-updatedAt',
+  })
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response: LatestPostsResponse = await fetch('/api/posts/getLatestPosts/3').then(
-          (res) => res.json(),
-        )
-        if (response && response.docs) {
-          setPosts(response.docs)
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error)
-      }
-    }
+  const posts = response?.docs ?? []
 
-    fetchPosts()
-  }, [])
-
-  if (posts === undefined || posts.length === 0) {
-    return <></>
-  }
+  if (posts.length === 0) return null
 
   const formatDate = (date: string) => {
     const newDate = new Date(date)
@@ -53,11 +37,9 @@ const LatestPosts: React.FC = () => {
           </li>
         ))}
       </ul>
-      <a className="latestposts-more" href="/hirek">
+      <Link href="/hirek" className="latestposts-more">
         További hírek…
-      </a>
+      </Link>
     </div>
   )
 }
-
-export default LatestPosts

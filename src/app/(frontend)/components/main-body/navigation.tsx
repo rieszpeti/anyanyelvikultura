@@ -1,24 +1,25 @@
 import React from 'react'
 import './navigation.css'
+import Link from 'next/link'
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar__container">
         <div className="navbar__item">
-          <a className="navbar__link" href="/blanko-miklos">
+          <Link className="navbar__link" href="/blanko-miklos">
             Blankó Miklós
-          </a>
+          </Link>
         </div>
         <div className="navbar__item">
-          <a className="navbar__link" href="/alapitvanyrol">
+          <Link className="navbar__link" href="/alapitvanyrol">
             Az alapítványról
-          </a>
+          </Link>
         </div>
         <div className="navbar__item">
-          <a className="navbar__link" href="/gretsy-laszlo-dij">
+          <Link className="navbar__link" href="/gretsy-laszlo-dij">
             Grétsy László-díj
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

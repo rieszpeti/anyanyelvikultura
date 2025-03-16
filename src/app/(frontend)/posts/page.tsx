@@ -26,9 +26,7 @@ export default async function PostsPage() {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <Link href={`/posts/${post.slug}`}>
-              <a>{post.title}</a>
-            </Link>
+            <Link href={`/posts/${post.slug}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

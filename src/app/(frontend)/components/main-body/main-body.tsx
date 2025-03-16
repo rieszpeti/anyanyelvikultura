@@ -1,10 +1,9 @@
-import React from 'react'
 import './main-body.css'
 import Navbar from './navigation'
 import Carousel from './carousel'
 import LatestPosts from './latest-posts'
 
-const MainBody = () => {
+export default async function MainBody() {
   return (
     <div className="main-body">
       <Navbar />
@@ -13,5 +12,3 @@ const MainBody = () => {
     </div>
   )
 }
-
-export default MainBody
