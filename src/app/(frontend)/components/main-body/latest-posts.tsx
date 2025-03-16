@@ -37,7 +37,7 @@ export default async function LatestPosts() {
           </li>
         ))}
       </ul>
-      <Link href="/hirek" className="latestposts-more">
+      <Link href="/posts" className="latestposts-more">
         További hírek…
       </Link>
     </div>

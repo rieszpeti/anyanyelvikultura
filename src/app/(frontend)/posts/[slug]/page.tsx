@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import React, { Fragment } from 'react'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
 import type { Post } from '../../../../payload-types'
 
@@ -35,7 +36,9 @@ export default async function Page({ params: paramsPromise }: PageParams) {
 
   return (
     <Fragment>
-      <main>{post?.content.root.version}</main>
+      <main>
+        <RichText data={post.content} />
+      </main>
     </Fragment>
   )
 }
