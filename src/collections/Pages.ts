@@ -22,6 +22,18 @@ export const Pages: CollectionConfig = {
         },
       }
     },
+    create: ({ req: { user } }) => {
+      // Only allow admins to create pages
+      return user?.role === 'admin'
+    },
+    update: async ({ req: { user } }) => {
+      // Allow both admins and regular users to modify pages
+      return Boolean(user)
+    },
+    delete: ({ req: { user } }) => {
+      // Only allow admins to delete pages
+      return user?.role === 'admin'
+    },
   },
   versions: {
     drafts: {

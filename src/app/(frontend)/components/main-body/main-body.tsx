@@ -5,10 +5,10 @@ import LatestPosts from './latest-posts'
 
 export default async function MainBody() {
   return (
-    <div className="main-body">
+    <>
       <Navbar />
       <Carousel />
       <LatestPosts />
-    </div>
+    </>
   )
 }

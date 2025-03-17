@@ -10,10 +10,8 @@ interface ContentLayoutProps {
 export default async function ContentLayout({ title, content }: ContentLayoutProps) {
   return (
     <Fragment>
-      <div>
-        <h1>{title}</h1>
-        <RichText data={content} />
-      </div>
+      <h1>{title}</h1>
+      <RichText data={content} />
     </Fragment>
   )
 }

@@ -18,5 +18,4 @@ export const CarouselImages: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
 }

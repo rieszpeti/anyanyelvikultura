@@ -14,13 +14,25 @@ export const Posts: CollectionConfig = {
       // Logged in users can read anything
       if (user) return true
 
-      // If not logged in, you can oinly read published pages
+      // If not logged in, you can only read published pages
       // This is called "query constraint"
       return {
         _status: {
           equals: 'published',
         },
       }
+    },
+    create: ({ req: { user } }) => {
+      // Allow both admins and regular users to modify pages
+      return Boolean(user)
+    },
+    update: async ({ req: { user } }) => {
+      // Allow both admins and regular users to modify pages
+      return Boolean(user)
+    },
+    delete: ({ req: { user } }) => {
+      // Allow both admins and regular users to modify pages
+      return Boolean(user)
     },
   },
   versions: {

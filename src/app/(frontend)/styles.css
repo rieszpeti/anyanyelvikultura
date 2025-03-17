@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+.content-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 html {
   font-size: 18px;
   line-height: 32px;

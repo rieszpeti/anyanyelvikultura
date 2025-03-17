@@ -1,10 +1,7 @@
 import { notFound } from 'next/navigation'
-import './page.css'
-
-import type { Page } from '../../../payload-types'
-
-import ContentLayout from '../components/content-layout/content-layout'
 import { getPagesSlugs, queryPageBySlug } from '@/repository/query-repository'
+import type { Page } from '../../../payload-types'
+import ContentLayout from '../components/content-layout/content-layout'
 
 interface PageParams {
   params: Promise<{
