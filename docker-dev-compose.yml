@@ -1,0 +1,63 @@
+services:
+  payload:
+    image: node:18-alpine
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
+    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+    depends_on:
+      - postgres
+      # - minio
+    env_file:
+      - docker-dev-payload.env
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - docker-dev-postgre.env
+
+  # minio:
+  #   restart: always
+  #   image: minio/minio
+  #   volumes:
+  #     - 'minio_data:/data'
+  #   ports:
+  #     - '9000:9000'
+  #     - '9001:9001'
+  #   command: server /data --json --console-address ":9001"
+  #   env_file:
+  #     - docker-dev-minio.env
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live"]
+  #     interval: 10s
+  #     retries: 5
+  #     start_period: 30s
+  #     timeout: 10s
+
+  # createbuckets:
+  #   image: minio/mc
+  #   depends_on:
+  #     minio:
+  #       condition: service_healthy
+  #   entrypoint: >
+  #     /bin/sh -c "
+  #     /usr/bin/mc alias set public http://minio:9000 admin admin123;
+  #     /usr/bin/mc mb minio/media;
+  #     /usr/bin/mc anonymous set public minio/media;
+  #     exit 0;
+  #     "
+  #   env_file:
+  #     - docker-dev-minio.env
+
+volumes:
+  minio_data:
+  pgdata:
+  node_modules:

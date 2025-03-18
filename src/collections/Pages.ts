@@ -1,3 +1,4 @@
+import { getEnvVar } from '@/payload.config'
 import type { CollectionConfig } from 'payload'
 
 export const Pages: CollectionConfig = {
@@ -6,7 +7,7 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data }) => `${process.env.PAYLOAD_URL}/${data.slug}`,
+      url: ({ data }) => `${getEnvVar('PAYLOAD_URL')}/${data.slug}`,
     },
   },
   access: {

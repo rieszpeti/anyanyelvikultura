@@ -12,7 +12,7 @@ export const CarouselImages: CollectionConfig = {
       required: false,
     },
     {
-      name: 'image',
+      name: 'media',
       type: 'upload',
       relationTo: 'media',
       required: true,
