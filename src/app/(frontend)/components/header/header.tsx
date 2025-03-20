@@ -14,7 +14,7 @@ const Header = () => {
           width={-1}
           height={-1}
         />
-        <h1 className="ml-2">Anyanyelvi Kultúránkért Alapítvány</h1>
+        <h1 className="ml-2 md:text-lg">Anyanyelvi Kultúránkért Alapítvány</h1>
       </div>
       <div className="m-auto">
         <Navbar className="gap-2 w-full" />
