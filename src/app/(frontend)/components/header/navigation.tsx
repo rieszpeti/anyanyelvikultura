@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/blanko-miklos', label: 'Blankó Miklós' },
   { href: '/alapitvanyrol', label: 'Az alapítványról' },
   { href: '/gretsy-laszlo-dij', label: 'Grétsy László-díj' },
-  { href: '/kapcsolat', label: 'Kapcsolat' },
+  { href: '/contact', label: 'Kapcsolat' },
 ]
 
 const Navbar: React.FC<NavbarProps> = ({ className }) => {
