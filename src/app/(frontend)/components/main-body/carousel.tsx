@@ -58,8 +58,12 @@ export default async function MyCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <div className="absolute top-1/2 left-0 transform -translate-y-1/2 hidden sm:block">
+        <CarouselPrevious />
+      </div>
+      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 hidden sm:block">
+        <CarouselNext />
+      </div>
     </Carousel>
   )
 }
