@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '../../../../payload.config'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default async function LatestPosts() {
   const payload = await getPayload({ config })
@@ -17,28 +19,29 @@ export default async function LatestPosts() {
 
   const formatDate = (date: string) => {
     const newDate = new Date(date)
-    const year = newDate.getFullYear()
-    const month = String(newDate.getMonth() + 1).padStart(2, '0')
-    const day = String(newDate.getDate()).padStart(2, '0')
-    return `${year}-${month}-${day}`
+    return newDate.toISOString().split('T')[0] // YYYY-MM-DD
   }
 
   return (
-    <div className="latestposts">
-      <h2 className="latestposts-header">Hírek</h2>
-      <ul className="latestposts-list">
+    <div className="space-y-4 mt-6">
+      <h2 className="text-2xl font-semibold text-center">Hírek</h2>
+      <div className="grid gap-4">
         {posts.map((post, index) => (
-          <li key={index} className="latestposts-item">
-            <div className="latestposts-content">
-              <h3 className="latestposts-title">{post.title}</h3>
-              <p className="latestposts-date">{formatDate(post.updatedAt)}</p>
-            </div>
-          </li>
+          <Card key={index} className="max-w-md m-auto w-1/2">
+            <CardHeader>
+              <CardTitle>{post.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm text-gray-500">
+              {formatDate(post.updatedAt)}
+            </CardContent>
+          </Card>
         ))}
-      </ul>
-      <Link href="/posts" className="latestposts-more">
-        További hírek…
-      </Link>
+      </div>
+      <div className="flex justify-center">
+        <Button asChild variant="outline" className="max-w-md m-auto w-1/2">
+          <Link href="/posts">További hírek…</Link>
+        </Button>
+      </div>
     </div>
   )
 }

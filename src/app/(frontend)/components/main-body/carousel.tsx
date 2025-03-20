@@ -36,7 +36,7 @@ export default async function MyCarousel() {
   }
 
   return (
-    <Carousel className="m-auto w-full max-w-xs">
+    <Carousel className="m-auto w-full max-w-xs mt-6">
       <CarouselContent>
         {carouselResponse.docs.map((doc, index) => (
           <CarouselItem key={index}>
