@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import './latest-posts.css'
 import { getPayload } from 'payload'
 import config from '../../../../payload.config'
 

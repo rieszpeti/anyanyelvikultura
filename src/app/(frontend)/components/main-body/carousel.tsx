@@ -1,5 +1,4 @@
 import React from 'react'
-import './carousel.css'
 import Image from 'next/image'
 import { CarouselImage, Media } from '@/payload-types'
 
