@@ -27,7 +27,7 @@ export default async function LatestPosts() {
       <h2 className="text-2xl font-semibold text-center">Hírek</h2>
       <div className="grid gap-4">
         {posts.map((post, index) => (
-          <Link href={`/posts/${post.id}`} key={index} passHref>
+          <Link href={`/posts/${post.slug}`} key={index} passHref>
             <Card className="max-w-md m-auto w-1/2 cursor-pointer">
               <CardHeader>
                 <CardTitle>{post.title}</CardTitle>
