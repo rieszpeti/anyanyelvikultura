@@ -12,6 +12,9 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { CarouselImages } from './collections/CarouselImages'
 import { Pages } from './collections/Pages'
+import { seedAdminUser } from './seeds/seed-admin'
+import { seedPages } from './seeds/seed-pages'
+import { getEnvVar } from './getEnvVar'
 // import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
@@ -59,88 +62,7 @@ export default buildConfig({
     // }),
   ],
   onInit: async (payload) => {
-    const email = getEnvVar('PAYLOAD_ADMIN_EMAIL')
-    const userName = getEnvVar('PAYLOAD_ADMIN_USERNAME')
-    const password = getEnvVar('PAYLOAD_ADMIN_PASSWORD')
-
-    const existingAdmin = await payload.find({
-      collection: 'users',
-      where: { email: { equals: email } },
-    })
-
-    if (!existingAdmin.docs.length) {
-      await payload.create({
-        collection: 'users',
-        data: {
-          email: email,
-          name: userName,
-          password: password,
-          role: 'admin',
-        },
-      })
-    }
-
-    // Define the pages to seed
-    const pagesToSeed = [
-      { title: 'Blankó Miklós', slug: 'blanko-miklos' },
-      { title: 'Az alapítványról', slug: 'alapitvanyrol' },
-      { title: 'Grétsy László-díj', slug: 'gretsy-laszlo-dij' },
-    ]
-
-    for (const page of pagesToSeed) {
-      const existingPage = await payload.find({
-        collection: 'pages',
-        where: { slug: { equals: page.slug } },
-      })
-
-      if (!existingPage.docs.length) {
-        await payload.create({
-          collection: 'pages',
-          data: {
-            title: page.title,
-            slug: page.slug,
-            content: {
-              root: {
-                type: 'root',
-                format: '',
-                indent: 0,
-                version: 1,
-                children: [
-                  {
-                    type: 'paragraph',
-                    format: '',
-                    indent: 0,
-                    version: 1,
-                    children: [
-                      {
-                        mode: 'normal',
-                        text: 'Weboldalunk éppen megújul, köszönjük türelmét!',
-                        type: 'text',
-                        style: '',
-                        detail: 0,
-                        format: 0,
-                        version: 1,
-                      },
-                    ],
-                    direction: 'ltr',
-                    textStyle: '',
-                    textFormat: 0,
-                  },
-                ],
-                direction: 'ltr',
-              },
-            },
-          },
-        })
-      }
-    }
+    await seedAdminUser(payload)
+    await seedPages(payload)
   },
 })
-
-export function getEnvVar(name: string) {
-  const value = process.env[name]
-  if (!value) {
-    throw new Error(`Missing environment variable: ${name}`)
-  }
-  return value
-}

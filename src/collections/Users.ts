@@ -9,8 +9,8 @@ export const Users: CollectionConfig = {
   },
   access: {
     admin: ({ req: { user } }) => {
-      // Only allow admins to create user
-      return user?.role === 'admin'
+      // Allow both user and admin to enter admin panel
+      return Boolean(user)
     },
     create: ({ req: { user } }) => {
       // Only allow admins to create user
