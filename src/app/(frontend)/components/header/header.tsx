@@ -7,12 +7,12 @@ const Header = () => {
     <header className="flex items-center bg-slate-100 border-b border-slate p-3">
       <div className="flex items-center">
         <Image
-          className="w-28 h-28 "
+          className="w-28 h-28"
           priority={true}
           src="/images/main_logo.png"
           alt="Anyanyelvi Kultúránkért"
-          width={-1}
-          height={-1}
+          width={112}
+          height={112}
         />
         <h1 className="ml-2 md:text-lg">Anyanyelvi Kultúránkért Alapítvány</h1>
       </div>
