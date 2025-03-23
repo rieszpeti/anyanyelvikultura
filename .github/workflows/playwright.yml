@@ -16,8 +16,11 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Install dependencies
+      - name: Install pnpm
         run: npm install -g pnpm #&& pnpm install
+      
+      - name: Install Playwright
+        run: pnpm add playwright
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
