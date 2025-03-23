@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import type { Post } from '../../../payload-types'
+import { getEnvVar } from '@/getEnvVar'
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -62,7 +63,8 @@ export default function PostsPage() {
 }
 
 async function fetchPosts(page: number, limit = 5) {
-  const res = await fetch(`/api/posts?page=${page}&limit=${limit}`, {
+  const baseUrl = getEnvVar('PAYLOAD_URL')
+  const res = await fetch(`${baseUrl}/api/posts?page=${page}&limit=${limit}`, {
     headers: {
       'Content-Type': 'application/json',
     },

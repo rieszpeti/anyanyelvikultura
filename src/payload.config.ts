@@ -15,6 +15,7 @@ import { Pages } from './collections/Pages'
 import { seedAdminUser } from './seeds/seed-admin'
 import { seedPages } from './seeds/seed-pages'
 import { getEnvVar } from './getEnvVar'
+// import { migrations } from './migrations'
 // import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
@@ -38,6 +39,7 @@ export default buildConfig({
     pool: {
       connectionString: getEnvVar('DATABASE_URI'),
     },
+    // prodMigrations: migrations,
   }),
   sharp,
   plugins: [
@@ -62,7 +64,11 @@ export default buildConfig({
     // }),
   ],
   onInit: async (payload) => {
-    await seedAdminUser(payload)
-    await seedPages(payload)
+    const isBuilding: boolean = process.env.IS_BUILDING ? process.env.IS_BUILDING === 'true' : false
+
+    if (!isBuilding) {
+      await seedAdminUser(payload)
+      await seedPages(payload)
+    }
   },
 })
