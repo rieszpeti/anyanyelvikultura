@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export DOCKER_BUILDKIT=1
 set -e  # Exit immediately on error
 
 MAX_RETRIES=2  # Number of retries allowed

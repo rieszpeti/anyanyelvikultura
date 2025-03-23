@@ -3,6 +3,7 @@ services:
     build:  
       context: .
       dockerfile: Dockerfile.prod
+      network: host
       # args:
       #   PAYLOAD_URL: ${PAYLOAD_URL}
       #   PAYLOAD_URL_POSTS: ${PAYLOAD_URL_POSTS}
@@ -35,6 +36,8 @@ services:
       # - PUBLIC_IMAGE_DOMAIN=localhost
     env_file:
       - docker-dev-payload.env
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
   postgres:
     restart: always
@@ -45,6 +48,8 @@ services:
       - "5432:5432"
     env_file:
       - docker-dev-postgre.env
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
   # minio:
   #   restart: always
